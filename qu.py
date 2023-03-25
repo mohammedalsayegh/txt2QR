@@ -1,7 +1,4 @@
-#! /usr/bin/python
-# python -m PyInstaller -w --onefile .\qu.py
-# python -m nuitka --onefile --standalone .\qu.py
-# python -m PyInstaller --clean -w --onefile .\qu.py
+# Name: Mohammed Alsayegh
 
 from pathlib import Path
 import tkinter as tk
@@ -34,7 +31,6 @@ import os
 import pathlib
 import shutil
 
-#OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = os.getcwd() + "\\assets\\frame0"
 TEMP_PATH = os.getcwd() + "\\assets\\temp"
 MAIN_PATH = os.getcwd()
@@ -66,8 +62,6 @@ class App:
  
         master.geometry('%dx%d+%d+%d' % (width, height, x, y))
         master.iconbitmap(relative_to_assets('icon.ico'))
-        #master.geometry("720x512")
-        #master.configure(bg = "#FFFFFF")
         master.configure(bg = "#B2B99F")
         
         # create a menubar
@@ -76,6 +70,7 @@ class App:
 
         # create the file_menu
         file_menu = tk.Menu(menubar, tearoff=0 )
+
         # add menu items to the File menu
         file_menu.add_command(label='New')
         file_menu.add_command(label='Open...',accelerator="Ctrl+O", command=lambda:self.open_txt_file())
@@ -133,32 +128,19 @@ class App:
         self.reply2='SolidFillColorMask()'
 
         self.name_var=tk.StringVar()
-        
-        #self.name_var.trace('w', lambda *args: print('hi'))
-        #self.aWriteTracerID = self.name_var.trace('w', lambda *args: self.sring_chnaged())
-
         self.frame = tk.Frame(master)
         self.canvas = tk.Canvas(self.frame,bg = "#FFFFFF",height = height,width = width,bd = 0,highlightthickness = 0,relief = "ridge")
         self.canvas.place(x = 0, y = 0)
-
-        #self.img0 = tk.PhotoImage(file=relative_to_assets("entry_1.png"))
-        #entry_bg_1 = self.canvas.create_image(281.5, 48.0, image=self.img0)
 
         self.txtframe = tk.Frame(master)
         self.txtframe.place(x=83.0, y=24.0, width=554.0, height=24.0)
         self.textbox = tk.Text(self.txtframe,bd=0,bg="#D9D9D9",fg="#000716",highlightthickness=0)
         self.textbox.place(x=83.0, y=24.0, width=554.0, height=24.0)
-        #self.scroll = tk.Scrollbar(self.textbox)
-        #self.textbox.configure(yscrollcommand=self.scroll.set)
         self.textbox.pack(side=tk.RIGHT)
-          
-        #self.scroll.config(command=self.textbox.yview)
-        #self.scroll.pack(side=tk.LEFT, fill=tk.Y)
 
         self.textbox.config(fg='grey')
         self.textbox.insert(1.0, "QR2txt")
         self.init_placeholder(self.textbox, "QR2txt")
-        #self.textbox.bind("<Return>", lambda x: self.string_chnaged())
 
         y_bottom=244.0
         self.img1 = tk.PhotoImage(file=relative_to_assets("button_1.png"))
@@ -214,15 +196,13 @@ class App:
             'VerticalBarsDrawer()':"qr_file5.png",
             'HorizontalBarsDrawer()':"qr_file6.png"
         }
-        #with open('Book8.csv') as fp:
 
         self.txtfile = tk.filedialog.askopenfilename()
-        #fob=open(self.txtfile ,'r', encoding="utf8")
+
         c = 0
         with open(self.txtfile ,'r', encoding="utf8") as fob:
             for line in fob:
                 c = c + 1
-                #print line[1]
                 self.textbox.delete(1.0, "end")
                 self.textbox.insert(1.0, line)
 
@@ -245,15 +225,13 @@ class App:
         self.reply2 = 'Color Chooser'
     
     def open_txt_file(self):
-        #self.txtfile = tk.filedialog.askopenfile(mode='r',filetypes=(("txt files","*.txt"),))
-
         self.txtfile = tk.filedialog.askopenfilename()
         fob=open(self.txtfile ,'r', encoding="utf8")
         print(fob.read())
 
         self.textbox.config(fg='black')
         self.textbox.delete(1.0, "end")
-        #self.textbox.insert(1.0, self.txtfile.read())
+
         fob.seek(0)
         self.textbox.insert(1.0, fob.read())
 
@@ -288,21 +266,12 @@ class App:
         s=('SolidFillColorMask()','RadialGradiantColorMask()','SquareGradiantColorMask()','HorizontalGradiantColorMask()','VerticalGradiantColorMask()', 'ImageColorMask()','Color Chooser')
         self.reply2=choicebox("Select color_mask preferance:", choices = s)
 
-        
-        #if self.reply2=='SolidFillColorMask()':
-            #self.aWriteTracerID = self.name_var.trace('w', lambda *args: self.sring_chnaged())
-        #else:
-            #print("Im here")
-            #print(self.aWriteTracerID)
-            #self.name_var.trace_remove("w", self.aWriteTracerID)
-
         if self.reply2=="ImageColorMask()":
             self.logo = fileopenbox()
             self.logo = Image.open(self.logo)
             print(self.logo)
         if self.reply2=="Color Chooser":
             self.fill_colorchooser_fun()
-        #self.sring_chnaged()
 
     def resizeImage(self, img, newWidth, newHeight):
         oldWidth = img.width()
@@ -360,7 +329,6 @@ class App:
                 self.save_location = self.save_location+".png"
             else:
                 self.save_location=main_to_temp("out.png")
-            #print(self.save_location)
             print("done")
 
     def txt2qr(self):
@@ -382,25 +350,14 @@ class App:
             'ImageColorMask()':ImageColorMask
         }
         
-        qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_L)
-        
+        qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_L)       
         qr.add_data(self.textbox.get("1.0","end"))
-        #qr.add_data(self.name_var.get())
 
-        #qr.add_data(self.txtfile.read())
 
         reply1=['SquareModuleDrawer()','GappedSquareModuleDrawer()','CircleModuleDrawer()','RoundedModuleDrawer()','VerticalBarsDrawer()','HorizontalBarsDrawer()']
 
         if self.reply2=="ImageColorMask()":
  
-            # variable to store hexadecimal code of color
-            #back_color_array = colorchooser.askcolor(title ="Choose color")
-            #back_color_array = (back_color_array[0][0], back_color_array[0][1], back_color_array[0][2])
-            #print(color_code)
-
-            #back_color_array=(255,255,255)
-            #self.back_color_array=(125,125,125)
-
             reply=reply1[0]
             img = qr.make_image(image_factory=StyledPilImage, color_mask=ImageColorMask(back_color=self.back_color_array, color_mask_image=self.logo), module_drawer=functions_drawer[reply]())
             img=img.resize((self.qr_size, self.qr_size))
@@ -492,22 +449,6 @@ class App:
             img = qr.make_image(image_factory=StyledPilImage, module_drawer=functions_drawer[reply](), color_mask=functions_color_mask[self.reply2]())
             img=img.resize((self.qr_size, self.qr_size))
             img.save("./assets/temp/qr_file6.png")
-
-    def my_function(self):
-        print("Hello from a function")
-        print("button_1 clicked")
-
-        self.img = tk.PhotoImage(file=relative_to_assets("123.png"))
-        self.button_1.config(image=self.img)
-        #self.update()
-        print(self.hi)
-
-    def load_image(self, filename):
-        self.fig_image = ImageTk.PhotoImage(Image.open(filename).resize(self.fig_size, Image.BILINEAR))
-
-    #def update(self, *args):
-        #self.load_image('sample2.png')
-        #self.image_label.config(image=self.fig_image)
 
     def close(self, *args):
         print('GUI closed...')
