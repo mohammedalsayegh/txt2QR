@@ -15,7 +15,6 @@ ordered-set==4.1.0
 pefile==2023.2.7
 Pillow==9.4.0
 pipreqs==0.4.11
-pyinstaller @ file:///C:/Users/black/Desktop/pyinstaller-5.9.0
 pyinstaller-hooks-contrib==2023.1
 pypng==0.20220715.0
 pywin32-ctypes==0.2.0
